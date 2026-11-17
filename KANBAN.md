@@ -2,7 +2,8 @@
 
 > **Project:** Virtual Printer Error Detection System  
 > **Timeline:** 12-Week Iterative Project  
-> **Scope:** Emulating virtual printing, capturing print jobs, and detecting printing errors one feature at a time.
+> **Scope:** Emulating virtual printing, capturing print jobs, and detecting printing errors one feature at a time.  
+> **🔗 Live GitHub Board:** [https://github.com/users/sdPrang0n/projects/1](https://github.com/users/sdPrang0n/projects/1)
 
 ---
 

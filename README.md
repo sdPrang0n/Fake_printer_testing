@@ -72,4 +72,5 @@ Features will be developed and integrated incrementally, week by week, according
 
 ## 📊 Kanban Board
 
-The visual task board is maintained in [KANBAN.md](KANBAN.md) and tracked on GitHub Projects.
+- 🚀 **Live Interactive Board:** [GitHub Project #1](https://github.com/users/sdPrang0n/projects/1)
+- 📄 **Offline Markdown Board:** [KANBAN.md](KANBAN.md)
