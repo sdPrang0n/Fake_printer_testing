@@ -41,8 +41,8 @@ Features will be developed and integrated incrementally, week by week, according
 ## 🗓️ 12-Week Roadmap Overview
 
 - **Phase 1: Foundation (Weeks 1–3)**
-  - Week 1: Project definition, requirements finalization & Kanban setup *(Current)*
-  - Week 2: Printer protocol analysis and error taxonomy classification
+  - Week 1: Project definition, requirements finalization & Kanban setup
+  - Week 2: Printer error taxonomy classification ([ERROR_TAXONOMY.md](ERROR_TAXONOMY.md))
   - Week 3: Virtual printer architecture & interface specification
 - **Phase 2: Core Emulation & Capture (Weeks 4–6)**
   - Week 4: Virtual printer listener & connection handler
