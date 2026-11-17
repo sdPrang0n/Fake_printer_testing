@@ -59,6 +59,17 @@ Features will be developed and integrated incrementally, week by week, according
 
 ---
 
+## 👥 Project Team
+
+| Member | Role | Focus Area |
+| :--- | :--- | :--- |
+| **Sukanta Debnath** ([@sdPrang0n](https://github.com/sdPrang0n)) | Project Lead / Core Developer | Virtual Printer Architecture & Planning |
+| *Team Member 2* | Developer / Protocol Specialist | Stream Buffering & Error Injection |
+| *Team Member 3* | Error Detection Specialist | Syntax Validation & Network Faults |
+| *Team Member 4* | QA & Diagnostics Lead | Testing, Error Reporting & Logging |
+
+---
+
 ## 📊 Kanban Board
 
 The visual task board is maintained in [KANBAN.md](KANBAN.md) and tracked on GitHub Projects.
