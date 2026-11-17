@@ -1,23 +1,13 @@
-# macOS
+# System & OS Files
 .DS_Store
-.AppleDouble
-.LSOverride
+Thumbs.db
+*.tmp
 
-# Python
+# Python Cache
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-.venv/
+*.pyc
 
-# Print job output captures
-output_jobs/
-*.bin
-*.raw
-
-# Logs & temp
+# Logs & Output
 *.log
+logs/
+output/
