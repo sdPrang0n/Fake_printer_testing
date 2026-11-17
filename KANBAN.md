@@ -9,14 +9,15 @@
 
 ---
 
-## 👥 Project Team & Roles
+## 👥 Project Team (Team 04)
 
-| Member | GitHub Handle | Project Role | Primary Deliverables |
-| :--- | :--- | :--- | :--- |
-| **Sukanta Debnath** | [@sdPrang0n](https://github.com/sdPrang0n) | Project Lead / Core Developer | Virtual Printer Architecture & Planning |
-| *Team Member 2* | *(Pending)* | Windows Agent Developer | Windows Print Spooler & Driver Faults |
-| *Team Member 3* | *(Pending)* | Simulation & SNMP Specialist | SNMP Printer MIB & Protocol Emulation |
-| *Team Member 4* | *(Pending)* | QA & Scenario Engineer | Scenario Engine, Reset/Restore & Testing |
+| Member | Charter Role | Primary Focus Area |
+| :--- | :--- | :--- |
+| **Sukanta Debnath** ([@sdPrang0n](https://github.com/sdPrang0n)) | Facilitator & Lead Developer | Virtual Printer Backend, TCP 9100 & SNMP Architecture |
+| **Rejoana Carol** | Strategist & QA / Testing Lead | Test Cases, Fault Validation Runs & Rubric Compliance |
+| **Kanijfatma Arifali Tharadara** | Recorder & Spokesperson (UI / Docs) | Web Control Interface, Documentation & Presentation Materials |
+
+📜 Full Team Charter: [TEAM_CHARTER.md](TEAM_CHARTER.md) | Word Doc: [`Team_Charter_Team04.docx`](Team_Charter_Team04.docx)
 
 ---
 

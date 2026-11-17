@@ -87,19 +87,19 @@ The objective of this project is to build a safe, controllable **virtual printer
 
 ---
 
-## 👥 Project Team
+## 👥 Project Team (Team 04)
 
-| Member | Role | Focus Area |
+| Member | Charter Role | Focus Area |
 | :--- | :--- | :--- |
-| **Sukanta Debnath** ([@sdPrang0n](https://github.com/sdPrang0n)) | Project Lead / Core Developer | Virtual Printer Architecture & Planning |
-| *Team Member 2* | Windows Agent Developer | Windows Print Spooler & Driver Faults |
-| *Team Member 3* | Simulation & SNMP Specialist | SNMP Printer MIB & Protocol Emulation |
-| *Team Member 4* | QA & Scenario Engineer | Scenario Engine, Reset/Restore & Testing |
+| **Sukanta Debnath** ([@sdPrang0n](https://github.com/sdPrang0n)) | Facilitator & Lead Developer | Virtual Printer Backend, TCP 9100 Listener & SNMP Emulation |
+| **Rejoana Carol** | Strategist & QA / Testing Lead | Test Cases, Fault Validation Runs & Rubric Criteria |
+| **Kanijfatma Arifali Tharadara** | Recorder & Spokesperson (UI / Docs) | Web Control Interface, Documentation & Presentation Materials |
 
 ---
 
-## 📊 Kanban Board
+## 📊 Project Documents & Kanban
 
 - 🚀 **Live Interactive Board:** [GitHub Project #1](https://github.com/users/sdPrang0n/projects/1)
 - 📄 **Offline Markdown Board:** [KANBAN.md](KANBAN.md)
+- 📜 **Team Charter:** [TEAM_CHARTER.md](TEAM_CHARTER.md) | Word Doc: [`Team_Charter_Team04.docx`](Team_Charter_Team04.docx)
 - 📖 **Fault Library Specification:** [FAULT_LIBRARY.md](FAULT_LIBRARY.md)
