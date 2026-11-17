@@ -79,13 +79,3 @@ To ensure clear accountability across our 3-person team, roles are structured as
 3. **Escalation:** If internal resolution cannot be reached after a dedicated team discussion, jointly reach out to the course instructor or project supervisor for formal guidance and mediation.
 
 ---
-
-## 5. Commitment to the Team Charter
-
-By signing below, each team member affirms their understanding of and commitment to the principles, roles, and working agreements outlined in this Team Charter:
-
-| Member Name | Signature | Date |
-| :--- | :--- | :--- |
-| **Sukanta Debnath** | ____________________________________ | ____ / ____ / 2026 |
-| **Rejoana Carol** | ____________________________________ | ____ / ____ / 2026 |
-| **Kanijfatma Arifali Tharadara** | ____________________________________ | ____ / ____ / 2026 |
