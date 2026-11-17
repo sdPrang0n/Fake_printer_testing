@@ -1,61 +1,89 @@
-# Virtual Printer Error Detection System
+# Project 04: Fake Printer for Testing
 
-## 📌 Project Overview
-This repository hosts a **12-week project** dedicated to building and testing a **Virtual Printer** system capable of simulating print workflows and **detecting errors** that occur during printing operations.
-
-Physical printers can fail in diverse and unpredictable ways (network drops, buffer overflows, malformed command streams, encoding mismatches, paper jams, and protocol errors). This project builds a virtual printing environment to capture, reproduce, detect, and analyze these errors in a controlled, automated fashion.
-
-Features will be developed and integrated incrementally, week by week, according to the roadmap below.
+[![Tags](https://img.shields.io/badge/Tags-SNMP%20%7C%20Simulation%20%7C%20Windows-blue)](https://github.com/sdPrang0n/Fake_printer_testing)
+[![Project Board](https://img.shields.io/badge/Kanban-GitHub%20Project%20%231-brightgreen)](https://github.com/users/sdPrang0n/projects/1)
+[![Current Status](https://img.shields.io/badge/Status-Week%202%20(In%20Progress)-orange)](KANBAN.md)
 
 ---
 
-## 🎯 Project Objectives
-1. **Virtual Printer Simulation**: Emulate standard printer interfaces and protocols to receive print jobs without requiring physical printer hardware.
-2. **Error Detection Engine**: Automatically detect, classify, and report printing errors such as:
-   - Malformed print streams or invalid command bytes (ESC/POS, PCL, PostScript, raw text).
-   - Connection timeouts, unexpected socket closures, and buffer overflows.
-   - Character encoding and corrupt data issues.
-   - Simulated hardware faults (out-of-paper status, offline status, print head errors).
-3. **Structured Diagnostics & Logging**: Provide detailed error logs, metrics, and actionable diagnostics for troubleshooting print failures.
-4. **Step-by-Step Delivery**: 12-week phased delivery adding features iteratively.
+## 🎯 The Goal
+Testing an **AI IT-support tool** on real devices is risky, expensive, and hard to repeat. 
+
+The objective of this project is to build a safe, controllable **virtual printer and PC environment** that can **break on purpose** (simulate real-world IT printer problems) and be **reliably reset and restored** to clean states for automated, repeatable AI evaluation.
+
+---
+
+## 📦 What You'll Build (Core Deliverables)
+
+1. **Virtual Printer with a Library of Faults**:
+   - Emulates a networked printer listening on standard ports (e.g., Raw TCP 9100 / JetDirect).
+   - Implements **SNMP** (Simple Network Management Protocol) simulation to report standard printer MIB OIDs (status, paper out, door open, low toner).
+   - Fault library to trigger simulated printer issues on-demand.
+
+2. **Windows Fault Agent for PC Problems**:
+   - Simulates common client-side printing issues on Windows PCs.
+   - Injects faults into the Windows printing subsystem:
+     - Print Spooler service stopped or crashed (`spoolsv.exe`).
+     - Corrupted, missing, or mismatched printer drivers.
+     - Print jobs stuck in the queue (`C:\Windows\System32\spool\PRINTERS`).
+     - Port / IP misconfiguration or printer toggled to "Use Printer Offline".
+
+3. **Scenario Engine to Run Test Cases**:
+   - Automated orchestration engine to run multi-step IT support test scenarios.
+   - Triggers specific sequences of printer and PC faults, waits for the AI IT-support tool to diagnose/remediate, and verifies resolution.
+
+4. **Web Control Interface**:
+   - An interactive dashboard for developers and test operators.
+   - Allows manual 1-click fault injection, real-time monitoring of printer/PC status, and test scenario execution.
+
+5. **Reset and Restore**:
+   - Automated recovery mechanism to restore the virtual printer, Windows print spooler, queues, and drivers back to a clean baseline state after every test.
+
+---
+
+## 🏷️ Technical Scope & Tags
+- **SNMP**: Emulating RFC 1759 / RFC 3805 Printer MIB queries (e.g., `hrPrinterStatus`, `hrPrinterDetectedErrorState`).
+- **Simulation**: Safe virtualization of printer transport, stream ingestion, and error states without physical hardware.
+- **Windows**: Windows Print Spooler management, driver simulation, and client OS fault injection.
 
 ---
 
 ## 📋 Requirements
 
 ### Functional Requirements
-- **FR-1: Print Job Capture**: Accept and buffer incoming print jobs across virtual communication channels.
-- **FR-2: Stream & Syntax Validation**: Inspect print data for protocol violations, invalid control codes, or truncated data streams.
-- **FR-3: Error Detection & Classification**: Identify and categorize errors into distinct types (Protocol, Network/Transport, Data Corruption, Hardware Emulation).
-- **FR-4: Error Reporting & Alerts**: Produce structured error reports (timestamps, client metadata, error code, diagnostic message, raw payload snippet).
-- **FR-5: Test Simulation / Error Injection**: Ability to deliberately trigger or simulate specific printing faults to verify detection accuracy.
+- **FR-1: Printer Emulation & Fault Library**: Virtual printer accepts print jobs and exposes controllable fault states (paper jam, out of toner, offline, buffer overflow, corrupt stream).
+- **FR-2: SNMP Agent Simulation**: Responds to SNMP `GET` / `WALK` requests with accurate OID values reflecting healthy vs faulted printer states.
+- **FR-3: Windows Client Fault Simulation**: Agent capable of altering spooler service state, corrupting queue files, or modifying printer registry/port settings.
+- **FR-4: Scenario Orchestration**: Execute automated test cases defining initial state, fault injection sequence, expected AI diagnostic steps, and success criteria.
+- **FR-5: Web Management Console**: Web UI for monitoring system status, triggering faults, and managing test scenarios.
+- **FR-6: One-Click Reset & Restore**: Complete environment rollback to clean baseline within seconds.
 
 ### Non-Functional Requirements
-- **NFR-1: Modularity**: Clean separation between virtual printer transport, parser, error detection rules, and reporting modules.
-- **NFR-2: Reliability**: Consistent error detection across repeated test cycles.
-- **NFR-3: Extensibility**: Support adding new error types and printer protocols in subsequent weeks.
-- **NFR-4: Clear Traceability**: All project milestones tracked via the Kanban board.
+- **NFR-1: Safety & Isolation**: Fault injection strictly isolated to virtual components without damaging host systems.
+- **NFR-2: Repeatability**: Scenarios produce identical symptoms and error states across consecutive runs.
+- **NFR-3: Extensibility**: Easy addition of new faults to the fault library via modular definitions.
+- **NFR-4: Traceability**: All project phases tracked in the Kanban board.
 
 ---
 
 ## 🗓️ 12-Week Roadmap Overview
 
-- **Phase 1: Foundation (Weeks 1–3)**
-  - Week 1: Project definition, requirements finalization & Kanban setup
-  - Week 2: Printer error taxonomy classification ([ERROR_TAXONOMY.md](ERROR_TAXONOMY.md))
-  - Week 3: Virtual printer architecture & interface specification
-- **Phase 2: Core Emulation & Capture (Weeks 4–6)**
-  - Week 4: Virtual printer listener & connection handler
-  - Week 5: Print stream buffering and payload persistence
-  - Week 6: Basic health monitoring & status reporting
-- **Phase 3: Error Detection Engine (Weeks 7–9)**
-  - Week 7: Stream validation & malformed command detection
-  - Week 8: Network fault & timeout detection
-  - Week 9: Data corruption and payload integrity verification
-- **Phase 4: Diagnostics, Testing & Delivery (Weeks 10–12)**
-  - Week 10: Error reporting, diagnostic logs, and dashboard
-  - Week 11: End-to-end testing, error injection verification & edge cases
-  - Week 12: Project review, final documentation & release
+- **Phase 1: Foundation & Specifications (Weeks 1–3)**
+  - Week 1: Project definition, requirements & Kanban board setup *(Completed)*
+  - **Week 2: Fault Library Specification & Windows/SNMP Error Taxonomy *(Current - In Progress)***
+  - Week 3: System architecture design & inter-component interface definitions
+- **Phase 2: Emulation & Windows Fault Agent (Weeks 4–6)**
+  - Week 4: Virtual printer core & SNMP simulation agent
+  - Week 5: Windows Fault Agent (spooler, driver, and queue fault injectors)
+  - Week 6: Fault injection engine & API integration
+- **Phase 3: Scenario Engine & Reset Subsystem (Weeks 7–9)**
+  - Week 7: Scenario engine (test case runner and workflow sequencer)
+  - Week 8: Reset and restore subsystem (automated clean state recovery)
+  - Week 9: Web control interface (dashboard for faults, status, and scenarios)
+- **Phase 4: AI Integration, Testing & Delivery (Weeks 10–12)**
+  - Week 10: AI IT-support tool integration & evaluation test suite
+  - Week 11: End-to-end scenario validation and repeatability verification
+  - Week 12: Project review, final documentation, and release
 
 ---
 
@@ -64,9 +92,9 @@ Features will be developed and integrated incrementally, week by week, according
 | Member | Role | Focus Area |
 | :--- | :--- | :--- |
 | **Sukanta Debnath** ([@sdPrang0n](https://github.com/sdPrang0n)) | Project Lead / Core Developer | Virtual Printer Architecture & Planning |
-| *Team Member 2* | Developer / Protocol Specialist | Stream Buffering & Error Injection |
-| *Team Member 3* | Error Detection Specialist | Syntax Validation & Network Faults |
-| *Team Member 4* | QA & Diagnostics Lead | Testing, Error Reporting & Logging |
+| *Team Member 2* | Windows Agent Developer | Windows Print Spooler & Driver Faults |
+| *Team Member 3* | Simulation & SNMP Specialist | SNMP Printer MIB & Protocol Emulation |
+| *Team Member 4* | QA & Scenario Engineer | Scenario Engine, Reset/Restore & Testing |
 
 ---
 
@@ -74,3 +102,4 @@ Features will be developed and integrated incrementally, week by week, according
 
 - 🚀 **Live Interactive Board:** [GitHub Project #1](https://github.com/users/sdPrang0n/projects/1)
 - 📄 **Offline Markdown Board:** [KANBAN.md](KANBAN.md)
+- 📖 **Fault Library Specification:** [FAULT_LIBRARY.md](FAULT_LIBRARY.md)
