@@ -22,7 +22,6 @@ The virtual printer runs on the Debian/Ubuntu simulation host, listening on TCP 
 | **`PRN_FLT_05`** | **Print Cover Open** | Hardware | Interlock sensor open on top/front maintenance cover | `hrPrinterDetectedErrorState`: `doorOpen(3)` | Set cover sensor state to `closed`, clear error |
 | **`PRN_FLT_06`** | **Bad Network: Port 9100 Offline** | Network | TCP connection refused or dropped; printer unreachable | Port 9100 closed, ping responds | Re-open TCP socket listener on port 9100 |
 | **`PRN_FLT_07`** | **Bad Network: Latency & Packet Drop** | Network | High packet delay or intermittent connection drops | Intermittent TCP timeout during payload stream | Reset virtual network bridge traffic shaping |
-| **`PRN_FLT_08`** | **Corrupt Print Stream / Malformed ESC-POS** | Protocol | Malformed escape codes or truncated raster graphics stream | `hrPrinterStatus`: `warning(3)` | Flush print job buffer, discard bad bytes |
 
 ---
 

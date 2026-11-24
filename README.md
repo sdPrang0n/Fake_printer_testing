@@ -39,7 +39,7 @@ The project deliverables are organized into a modular 12-component architecture:
 | :--- | :--- | :--- | :--- |
 | **Simulation Host Environment**<br>Debian / Ubuntu VM hosting the core simulation services. | **Virtual Printer Device**<br>Simulated network printer device accepting print streams (Port 9100 / IPP). | **SNMP Agent & Printer MIB Implementation**<br>Responds to queries with standard Printer MIB (`RFC 3805` / `RFC 1759`) & Host Resources MIB (`RFC 2790`). | **Printer Fault Library**<br>Configurable faults: bad network, toner levels, paper tray status, print cover open, etc. |
 | **SNMP Trap Generator**<br>Proactive event generator transmitting asynchronous SNMP traps/informs to event management tools. | **Windows Endpoint Fault Agent**<br>Agent deployed on demo Windows 11 VM to manipulate client-side system states. | **Endpoint Fault Library**<br>Simulates stopped/crashed Print Spooler (`spoolsv.exe`), stuck queues, driver & port errors. | **Reset and Restore Mechanism**<br>One-click baseline recovery mechanism to return host, printer, and PC to a clean state. |
-| **Web Control Interface**<br>Interactive web UI to control faults, configure timing, trigger scenarios, and view live status. | **Scenario Engine**<br>Automated test case runner orchestrating multi-step incident workflows for AI tool evaluation. | **State Monitoring and Logging**<br>Real-time telemetry, structured event logging, and state inspection across all components. | **Deployment and Operating**<br>Complete setup scripts, VM deployment templates, and user/operator guide. |
+| **Web Control Interface**<br>Interactive web UI to control faults, configure timing, trigger scenarios, and view live status. | **Scenario Engine**<br>Automated test case runner orchestrating multi-step incident workflows for AI tool evaluation. | **State Monitoring and Logging**<br>Real-time telemetry, structured event logging, and state inspection across all components. | **Deployment and Operating Documentation**<br>Complete setup scripts, VM deployment templates, and user/operator guide. |
 
 ---
 
@@ -74,7 +74,7 @@ The system is engineered against seven foundational technical criteria:
 - **Phase 4: AI Platform Integration, Testing & Deployment (Weeks 10–12)**
   - Week 10: AI IT-support tool integration & automated scenario validation suite
   - Week 11: End-to-end testing across all 7 core requirements (Repeatability, Realism, Controllability)
-  - Week 12: Deployment & Operating guide, final demonstration, and project release
+  - Week 12: Deployment and Operating Documentation, final demonstration, and project release
 
 ---
 

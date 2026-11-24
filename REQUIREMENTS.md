@@ -80,19 +80,18 @@ The 12 deliverables identified in the project requirements grid are detailed bel
 
 ### 2. Virtual Printer Device
 - **Protocol Support:** Raw TCP Port 9100 (JetDirect / AppSocket) and IPP (Internet Printing Protocol).
-- **Capability:** Ingests print jobs, decodes command streams (ESC/POS, PCL, PostScript, plain text), and renders or stores job payloads without requiring physical hardware.
+- **Capability:** Simulates a networked printer device accepting and buffering print jobs without requiring physical hardware.
 
 ### 3. SNMP Agent and Printer MIB Implementation
 - **Standards:** RFC 3805 (Printer MIB v2), RFC 1759 (Printer MIB v1), and RFC 2790 (Host Resources MIB).
 - **Functionality:** Listens on UDP port 161. Responds to SNMP `GET`, `GETNEXT`, and `WALK` requests from the AI support tool to report device status, model info, and telemetry.
 
 ### 4. Printer Fault Library
-- **Scope:** Configurable hardware and network fault modules:
+- **Scope:** Configurable hardware and network fault modules as specified:
   - *Bad Network:* Socket disconnects, dropped packets, simulated latency, port closure.
   - *Toner Levels:* Low toner warning (<10%), depleted toner (0%), cartridge missing.
   - *Paper Tray Status:* Paper jam in tray/rollers, paper out / empty tray, wrong paper size.
   - *Print Cover Open:* Top cover interlock open, front door unlatched.
-  - *Stream Errors:* Truncated jobs, corrupt control bytes.
 
 ### 5. SNMP Trap Generator
 - **Protocol:** SNMPv2c / SNMPv3 Trap and Inform notifications on UDP port 162.
@@ -133,7 +132,7 @@ The 12 deliverables identified in the project requirements grid are detailed bel
 - **Telemetry:** Real-time log streamer and event capture.
 - **Observability:** Centralized view of all injected faults, client print attempts, SNMP queries, and reset operations with millisecond timestamps.
 
-### 12. Deployment and Operating
+### 12. Deployment and Operating Documentation
 - **Distribution:** Infrastructure-as-Code (IaC) setup scripts, Docker/Vagrant VM configurations, and comprehensive Operating Guide for seamless demonstration deployment on developer laptops.
 
 ---
