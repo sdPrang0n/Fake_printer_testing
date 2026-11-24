@@ -90,6 +90,7 @@ The system is engineered against seven foundational technical criteria:
 ## 📊 Project Documents & Kanban
 
 - 🚀 **Live Interactive Board:** [GitHub Project #1](https://github.com/users/sdPrang0n/projects/1)
+- 📋 **System Requirements Specification (SRS):** [REQUIREMENTS.md](REQUIREMENTS.md)
 - 📄 **Offline Markdown Board:** [KANBAN.md](KANBAN.md)
 - 📜 **Team Charter:** [TEAM_CHARTER.md](TEAM_CHARTER.md) | Word Doc: [`docs/Team_Charter_Team04.docx`](docs/Team_Charter_Team04.docx)
 - 📖 **Fault Library Specification:** [FAULT_LIBRARY.md](FAULT_LIBRARY.md)
