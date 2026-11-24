@@ -8,6 +8,7 @@
 | **Project Repository** | [sdPrang0n/Fake_printer_testing](https://github.com/sdPrang0n/Fake_printer_testing) |
 | **Interactive Board** | [GitHub Project #1](https://github.com/users/sdPrang0n/projects/1) |
 | **Tags** | `SNMP` \| `Simulation` \| `Windows` |
+| **Project Supervisor** | **Isuru** (Course / Academic Supervisor) |
 | **Team Size** | **2 Members** |
 | **Team Members** | **Sukanta Debnath**, **Team Member 2** |
 
@@ -46,7 +47,7 @@ All work is guided by the **7 Core Project Requirements**: *Repeatability, Reali
   Routine formatting, minor refactoring, and component-specific code adjustments with low impact can be decided independently by the assigned task owner and communicated during syncs.
 
 - **Contingency Plan for Deadlocks (Supervisor Escalation):**  
-  Because the team consists of 2 members, a majority vote is mathematically impossible during a split decision. If a technical or scope disagreement cannot be resolved through consensus within 24 hours, both members agree to document both perspectives and jointly consult the course supervisor / instructor for final determination.
+  Because the team consists of 2 members, a majority vote is mathematically impossible during a split decision. If a technical or scope disagreement cannot be resolved through consensus within 24 hours, both members agree to document both perspectives and jointly consult the project supervisor (**Isuru**) for final determination.
 
 ---
 
@@ -82,4 +83,4 @@ To ensure balanced accountability across a 2-person engineering team, the 12 pro
 ### ⚖️ Conflict Resolution Process
 1. **Direct Inquiry:** Address misunderstandings early by focusing objectively on the code/deliverable rather than the individual, assuming positive intent.
 2. **Team Review:** If a disagreement persists, dedicate time during the next Teams sync to openly discuss the issue and adjust task distributions.
-3. **Instructor Mediation:** If resolution cannot be reached after a dedicated discussion, jointly reach out to the course instructor or project supervisor for formal guidance.
+3. **Supervisor Mediation:** If internal resolution cannot be reached after a dedicated discussion, jointly reach out to the project supervisor (**Isuru**) for formal guidance and mediation.

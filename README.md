@@ -78,7 +78,9 @@ The system is engineered against seven foundational technical criteria:
 
 ---
 
-## 👥 Project Team (Team 04 - 2 Members)
+## 👥 Project Team & Supervision (Team 04)
+
+- **Project Supervisor:** **Isuru** (Course / Academic Supervisor)
 
 | Member | Charter Role | Primary Focus Area |
 | :--- | :--- | :--- |

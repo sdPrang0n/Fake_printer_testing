@@ -152,9 +152,10 @@ The 12 deliverables identified in the project requirements grid are detailed bel
 
 ---
 
-## 5. Team 04 Project Structure
+## 5. Team 04 Project Structure & Supervision
 
 - **Course:** SCI 700 / SCI 701 (UniSC)
+- **Project Supervisor:** **Isuru** (Course / Academic Supervisor)
 - **Team Size:** 2 Members
 - **Lead Developer & Systems Architect:** Sukanta Debnath ([@sdPrang0n](https://github.com/sdPrang0n))
 - **Endpoint & Interface Developer:** Team Member 2

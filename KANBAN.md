@@ -10,7 +10,9 @@
 
 ---
 
-## 👥 Project Team (Team 04 - 2 Members)
+## 👥 Project Team & Supervision (Team 04)
+
+- **Project Supervisor:** **Isuru** (Course / Academic Supervisor)
 
 | Member | GitHub Handle | Charter Role | Primary Deliverables |
 | :--- | :--- | :--- | :--- |
