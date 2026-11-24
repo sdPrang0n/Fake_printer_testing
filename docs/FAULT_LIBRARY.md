@@ -1,96 +1,103 @@
 # 📚 Fault Library & Simulation Specifications
 
-> **Project 04:** Fake Printer for Testing  
+> **Project:** Fake Printer for Testing Event Management and AI Support Application  
+> **Course:** SCI 700 / SCI 701  
 > **Tags:** `SNMP` | `Simulation` | `Windows`  
 > **Status:** Week 2 Specification (In Progress)
 
-This document specifies the complete **Fault Library** for the Virtual Printer and Windows PC Fault Agent, detailing how faults are triggered, their observable symptoms (via SNMP, Windows logs, and printer streams), and the exact **Reset & Restore** procedures.
+This document specifies the complete **Fault Library** for the Virtual Printer Device, the **SNMP Trap Generator**, and the **Windows Endpoint Fault Agent** (Windows 11 VM), along with the **Reset and Restore Mechanism** designed to benchmark an AI IT-support platform.
 
 ---
 
-## 🖨️ Part 1: Virtual Printer Faults (Device & SNMP)
+## 🖨️ Part 1: Virtual Printer Fault Library (Debian/Ubuntu Host)
 
-The virtual printer listens on raw TCP port 9100 and exposes an SNMP agent (UDP port 161) implementing standard Printer MIB (`RFC 3805` / `RFC 1759`) and Host Resources MIB (`RFC 2790`).
+The virtual printer runs on the Debian/Ubuntu simulation host, listening on TCP port 9100 and hosting an SNMP Agent (`RFC 3805` Printer MIB / `RFC 1759`).
 
-| Fault ID | Fault Name | Category | Simulated Symptom | SNMP OID Value | Reset Action |
+| Fault ID | Fault Name | Category | Simulated Condition | SNMP OID Value / Status | Reset Action |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`PRN_FLT_01`** | **Paper Jam** | Hardware | Printer halts mid-job, rejects new jobs | `hrPrinterDetectedErrorState`: `paperJam(1)` | Set OID to normal (`0`), clear feed roller buffer |
-| **`PRN_FLT_02`** | **Out of Paper** | Supply | Printer pauses, sends paper out alert | `hrPrinterDetectedErrorState`: `noPaper(5)` | Set paper tray capacity to 100%, clear alert |
-| **`PRN_FLT_03`** | **Low / Out of Toner** | Supply | Warning logged, prints degraded or halts | `prtMarkerSuppliesLevel`: `0` | Reset toner level to `100` |
-| **`PRN_FLT_04`** | **Door / Cover Open** | Hardware | Interlocks open, motor disengaged | `hrPrinterDetectedErrorState`: `doorOpen(3)` | Set sensor state to `closed`, reset error state |
-| **`PRN_FLT_05`** | **Printer Offline / Disconnected** | Network | TCP connection refused or dropped | Host unresponsive to ping & port 9100 | Re-enable TCP socket listener & network adapter |
-| **`PRN_FLT_06`** | **Corrupt Print Stream / Syntax Error** | Protocol | Malformed ESC/POS or PCL stream received | `hrPrinterStatus`: `warning(3)` | Flush print job buffer, discard bad bytes |
-| **`PRN_FLT_07`** | **Buffer Overflow / Slowloris** | Transport | Input buffer flooded, slow data burst | `hrPrinterStatus`: `down(5)` | Clear socket input buffer, reset flow control |
+| **`PRN_FLT_01`** | **Paper Tray Status: Paper Jam** | Paper Tray | Sensor detects paper stuck in feed rollers; printing halted | `hrPrinterDetectedErrorState`: `paperJam(1)` | Clear feed path buffer, set OID to normal (`0`) |
+| **`PRN_FLT_02`** | **Paper Tray Status: Paper Out** | Paper Tray | Paper tray sensor indicates empty tray; jobs queued | `hrPrinterDetectedErrorState`: `noPaper(5)` | Refill virtual paper tray capacity to 100% |
+| **`PRN_FLT_03`** | **Toner Level: Low Toner** | Consumables | Toner level drops below 10% threshold; warning state | `prtMarkerSuppliesLevel`: `10` (Warning) | Restore toner level to `100` |
+| **`PRN_FLT_04`** | **Toner Level: Empty / Missing** | Consumables | Toner depleted or cartridge unseated; printer halts | `prtMarkerSuppliesLevel`: `0`, `hrPrinterStatus`: `down(5)` | Reset cartridge status to present, level to `100` |
+| **`PRN_FLT_05`** | **Print Cover Open** | Hardware | Interlock sensor open on top/front maintenance cover | `hrPrinterDetectedErrorState`: `doorOpen(3)` | Set cover sensor state to `closed`, clear error |
+| **`PRN_FLT_06`** | **Bad Network: Port 9100 Offline** | Network | TCP connection refused or dropped; printer unreachable | Port 9100 closed, ping responds | Re-open TCP socket listener on port 9100 |
+| **`PRN_FLT_07`** | **Bad Network: Latency & Packet Drop** | Network | High packet delay or intermittent connection drops | Intermittent TCP timeout during payload stream | Reset virtual network bridge traffic shaping |
+| **`PRN_FLT_08`** | **Corrupt Print Stream / Malformed ESC-POS** | Protocol | Malformed escape codes or truncated raster graphics stream | `hrPrinterStatus`: `warning(3)` | Flush print job buffer, discard bad bytes |
 
 ---
 
-## 💻 Part 2: Windows Fault Agent (PC Problems)
+## 📡 Part 2: SNMP Trap Generator (Event Management Integration)
 
-The Windows Fault Agent simulates real-world client-side PC problems that prevent users from printing or cause jobs to get stuck.
+To simulate proactive enterprise alert generation for event management systems and AI IT-support monitoring, the **SNMP Trap Generator** transmits asynchronous notifications (`SNMPv2c TRAP` / `INFORM`) when faults occur:
+
+| Trap ID | Trigger Event | Trap OID / Enterprise OID | Trap Payload Objects (Varbinds) |
+| :--- | :--- | :--- | :--- |
+| **`TRAP_01`** | Paper Jam Detected | `1.3.6.1.4.1.9999.1.1` (`prnPaperJamTrap`) | `hrPrinterDetectedErrorState` = `paperJam`, Location = "Tray 1" |
+| **`TRAP_02`** | Toner Depleted | `1.3.6.1.4.1.9999.1.2` (`prnTonerEmptyTrap`) | `prtMarkerSuppliesLevel` = 0, SupplyType = "Black Toner" |
+| **`TRAP_03`** | Cover Interlock Opened | `1.3.6.1.4.1.9999.1.3` (`prnCoverOpenTrap`) | `hrPrinterDetectedErrorState` = `doorOpen`, Cover = "Front Door" |
+| **`TRAP_04`** | Device Offline / Heartbeat Lost | `1.3.6.1.4.1.9999.1.4` (`prnOfflineTrap`) | `hrPrinterStatus` = `down(5)`, LastKnownIP = IP address |
+| **`TRAP_05`** | Printer Normal / Cleared | `1.3.6.1.4.1.9999.1.0` (`prnNormalTrap`) | `hrPrinterStatus` = `idle(3)`, `hrPrinterDetectedErrorState` = 0 |
+
+---
+
+## 💻 Part 3: Windows Endpoint Fault Agent (Windows 11 VM)
+
+The Windows Endpoint Fault Agent runs on the demo Windows 11 VM, controlling key operating system services and print subsystem states:
 
 | Fault ID | Fault Name | Target Component | Simulated Symptom | Observable Windows Artifact | Reset Action |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`WIN_FLT_01`** | **Print Spooler Stopped** | Service (`Spooler`) | User cannot print; "RPC server unavailable" | Service `Spooler` status = `Stopped` | Run `net start spooler` (PowerShell `Start-Service Spooler`) |
-| **`WIN_FLT_02`** | **Print Spooler Crashed** | Process (`spoolsv.exe`) | Spooler dies during job submission | Windows Event Log Event ID 7034 / 7031 | Clean corrupted `.SHD`/`.SPL` files and restart Spooler |
-| **`WIN_FLT_03`** | **Stuck Print Job in Queue** | Spooler Queue | Job status says "Error - Printing", blocks queue | Locked `.SHD` & `.SPL` files in `C:\Windows\System32\spool\PRINTERS` | Stop Spooler, delete `*.spl` / `*.shd`, start Spooler |
-| **`WIN_FLT_04`** | **Driver Corrupted / Missing** | Print Driver Subsystem | Print jobs fail silently or prompt driver reinstall | Driver registry key modified or DLL unlinked | Restore driver registry & reinstantiate driver package |
-| **`WIN_FLT_05`** | **Port / IP Misconfiguration** | TCP/IP Standard Port | Spooler attempts to connect to wrong IP/port | Printer port set to `192.168.1.254` (non-existent) | Restore printer port to correct virtual printer IP:9100 |
-| **`WIN_FLT_06`** | **Printer Set to Offline Mode** | Windows Printer State | Jobs queue up without sending to printer | Printer property `WorkOffline` / `Attributes` has `PRINTER_ATTRIBUTE_WORK_OFFLINE` | Run PowerShell: `Set-Printer -Name "..." -WorkOffline $false` |
-| **`WIN_FLT_07`** | **Printer Paused** | Windows Printer State | Jobs held in queue; printer marked "Paused" | Printer state flag `PRINTER_STATUS_PAUSED` | Run PowerShell: `Resume-PrintJob` or unpause printer |
+| **`WIN_FLT_01`** | **Print Spooler Service Stopped** | Windows Service (`Spooler`) | User cannot print; error "The print spooler service is not running" | Service `Spooler` status = `Stopped` | Execute `Start-Service Spooler` (PowerShell / Win32 API) |
+| **`WIN_FLT_02`** | **Print Spooler Crash / Abnormal Exit** | Process (`spoolsv.exe`) | Spooler terminates abruptly when job submitted | Windows Application Event Log Event ID 7034 / 7031 | Clean corrupted `.SHD`/`.SPL` files and restart Spooler |
+| **`WIN_FLT_03`** | **Stuck Print Job in Spooler Queue** | Spooler Queue Storage | Jobs stuck in "Deleting - Printing" state, blocking all queue | Locked `.SHD` & `.SPL` files in `C:\Windows\System32\spool\PRINTERS` | Stop Spooler, purge `*.spl` / `*.shd`, start Spooler |
+| **`WIN_FLT_04`** | **Corrupted / Missing Printer Driver** | Driver Subsystem | Jobs fail silently or system prompts driver reinstallation | Registry key unlinked or core driver DLL renamed | Restore driver package and re-link print driver registry |
+| **`WIN_FLT_05`** | **Port / IP Misconfiguration** | TCP/IP Standard Port | Spooler attempts to connect to unreachable/wrong IP:port | Port registry points to invalid host `192.168.1.254` | Reset printer port to virtual printer IP (e.g., `192.168.1.100:9100`) |
+| **`WIN_FLT_06`** | **Printer Set to "Use Printer Offline"** | Printer State Attribute | Print jobs queue up locally without transmitting | Printer attribute flag `PRINTER_ATTRIBUTE_WORK_OFFLINE` | Execute `Set-Printer -Name "..." -WorkOffline $false` |
 
 ---
 
-## 🔄 Part 3: Reset and Restore Architecture
+## 🔄 Part 4: Reset and Restore Mechanism
 
-A core requirement is the ability for the test operator or automated scenario runner to return everything to a known clean state.
+A primary requirement of the customer is **repeatability**—the ability to reset the entire test environment back to a clean baseline in seconds after an AI demo.
 
 ```
-       ┌───────────────────────────────┐
-       │   RESET & RESTORE CONTROLLER  │
-       └──────────────┬────────────────┘
-                      │
-         ┌────────────┴────────────┐
-         ▼                         ▼
-┌───────────────────┐    ┌───────────────────┐
-│  VIRTUAL PRINTER  │    │   WINDOWS AGENT   │
-│       RESET       │    │       RESET       │
-├───────────────────┤    ├───────────────────┤
-│ • Clear buffers   │    │ • Stop Spooler    │
-│ • Clear raw jobs  │    │ • Wipe *.SPL/*.SHD│
-│ • Reset SNMP OIDs │    │ • Restart Spooler │
-│ • Re-open port    │    │ • Fix IP/Port     │
-│   9100 listener   │    │ • Unpause/Online  │
-└───────────────────┘    └───────────────────┘
+                  ┌─────────────────────────────────┐
+                  │   RESET & RESTORE CONTROLLER    │
+                  └───────────────┬─────────────────┘
+                                  │
+         ┌────────────────────────┴────────────────────────┐
+         ▼                                                 ▼
+┌─────────────────────────────────┐       ┌─────────────────────────────────┐
+│ DEBIAN HOST / VIRTUAL PRINTER   │       │   WINDOWS 11 DEMO VM AGENT      │
+├─────────────────────────────────┤       ├─────────────────────────────────┤
+│ • Clear socket buffers & jobs   │       │ • Stop `Spooler` service        │
+│ • Reset SNMP OIDs to normal (0) │       │ • Wipe `spool\PRINTERS\*.spl`   │
+│ • Clear paper jam / cover flags │       │ • Restore driver & port mapping │
+│ • Set toner level to 100%       │       │ • Restart `Spooler` service     │
+│ • Emit SNMP Trap 'prnNormalTrap'│       │ • Set `WorkOffline = False`     │
+└─────────────────────────────────┘       └─────────────────────────────────┘
 ```
 
-### 1-Click Clean Baseline Definition:
-1. **Virtual Printer:**
-   - Listening on `0.0.0.0:9100` (healthy).
-   - SNMP agent responding with `hrPrinterStatus = idle(3)` and `hrPrinterDetectedErrorState = 0`.
-   - Paper tray full, toner at 100%, cover closed.
-2. **Windows Client:**
-   - Print Spooler service running (`Running`).
-   - `C:\Windows\System32\spool\PRINTERS\` is empty.
-   - Printer status is active, online (`WorkOffline = False`), and unpaused.
-   - TCP/IP port points to the active virtual printer IP and port 9100.
+### Clean Baseline Verification Criteria:
+1. **Virtual Printer (Debian/Ubuntu):**
+   - Listening on TCP port `9100`.
+   - SNMP agent responding: `hrPrinterStatus = idle(3)` and `hrPrinterDetectedErrorState = 0`.
+   - Toner level = 100%, Paper tray = full, Cover = closed.
+2. **Windows 11 VM:**
+   - Print Spooler service state = `Running`.
+   - Queue directory `C:\Windows\System32\spool\PRINTERS\` is empty.
+   - Printer status is Online (`WorkOffline = False`) and unpaused.
+   - Standard TCP/IP port points to Virtual Printer IP on port 9100.
 
 ---
 
-## 🎬 Part 4: Test Scenarios for AI IT-Support Tool
+## 🎯 Alignment with the 7 Core Requirements
 
-Test scenarios are scripted workflows that trigger a specific sequence of faults, present ticket information to the AI IT-support agent, and verify whether the AI accurately diagnoses and fixes the root cause:
-
-### Scenario 1: "User Cannot Print - Urgent Document"
-- **Injected Fault:** `WIN_FLT_01` (Print Spooler Stopped) + `WIN_FLT_03` (Stuck job in spooler).
-- **AI Task:** Query Windows service state, detect spooler failure, clear corrupted spool files, and restart service.
-- **Verification:** Test job prints successfully after AI resolution.
-
-### Scenario 2: "Printer Showing Error on Network"
-- **Injected Fault:** `PRN_FLT_01` (Paper Jam) + SNMP error code active.
-- **AI Task:** Query printer via SNMP OID `hrPrinterDetectedErrorState`, identify paper jam, report exact location to user.
-- **Verification:** AI suggests paper jam clearance; virtual sensor is cleared.
-
-### Scenario 3: "Jobs Disappearing / Connection Failed"
-- **Injected Fault:** `WIN_FLT_05` (Printer IP misconfigured on PC) while virtual printer is healthy.
-- **AI Task:** Inspect local port configuration, detect IP mismatch with network printer discovery, update printer port settings.
-- **Verification:** Connection re-established and test page printed.
+| Core Requirement | Implementation in Fault Library & Reset System |
+| :--- | :--- |
+| **Repeatability** | Deterministic fault triggers and automated 1-click restore mechanism guarantee identical test conditions on every run. |
+| **Realism** | Standard RFC 3805 SNMP MIB values, real Windows Spooler services, and genuine TCP 9100 streams. |
+| **Controllability** | Fine-grained parameter control (e.g., specific toner percentage, cover sensor toggle, network latency milliseconds). |
+| **Isolation and safety** | Sandbox execution in Debian VM and Windows 11 demo VM prevents damage to host or production hardware. |
+| **Portability** | VM and container-compatible design deployable on local workstations without cloud or external dependencies. |
+| **Observability** | Comprehensive state logging, SNMP trap generation, and real-time Web Control Interface. |
+| **Extensibility** | Pluggable fault definitions allowing new printer models, SNMP traps, or Windows service faults to be added easily. |

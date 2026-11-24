@@ -3,63 +3,69 @@
 | Project Detail | Information |
 | :--- | :--- |
 | **Team Number** | **Team 04** |
-| **Project Title** | **Project 04: Fake Printer for Testing** |
-| **Course / Program** | University of the Sunshine Coast (UniSC) |
+| **Project Title** | **Fake Printer for Testing Event Management and AI Support Application** |
+| **Course / Program** | SCI 700 / SCI 701 — University of the Sunshine Coast (UniSC) |
 | **Project Repository** | [sdPrang0n/Fake_printer_testing](https://github.com/sdPrang0n/Fake_printer_testing) |
 | **Interactive Board** | [GitHub Project #1](https://github.com/users/sdPrang0n/projects/1) |
 | **Tags** | `SNMP` \| `Simulation` \| `Windows` |
-| **Team Members** | **Sukanta Debnath**, **Rejoana Carol**, **Kanijfatma Arifali Tharadara** |
+| **Team Size** | **2 Members** |
+| **Team Members** | **Sukanta Debnath**, **Team Member 2** |
 
 ---
 
 ## 1. Purpose
 
-The purpose of Team 04 is to design, develop, and demonstrate a safe, controllable virtual ("fake") printer and PC environment capable of intercepting, simulating, and displaying print jobs, as well as breaking on purpose with simulated faults. 
+The purpose of Team 04 is to design, develop, and demonstrate a simulated printer and computer troubleshooting environment that can be used to demonstrate how an **AI-powered IT support platform** identifies and resolves technical problems.
 
-Testing AI-driven IT-support tools on real, physical hardware is risky, expensive, and difficult to repeat. This project delivers an isolated, automated testing sandbox featuring:
-- A virtual printer with a configurable library of hardware and protocol faults.
-- Simulated SNMP agent support (`RFC 3805` Printer MIB) for network status queries.
-- A Windows Fault Agent simulating client-side spooler, driver, and queue issues.
-- A scenario engine to execute repeatable IT support test cases.
-- A web control interface for manual triggers and real-time monitoring.
-- A reliable 1-click reset and restore mechanism to return the system to a clean baseline.
+The customer already has an AI support platform capable of diagnosing known issues on end users' computers without a service desk agent needing to contact the customer. However, demonstrating its capabilities during sales or evaluation demos is difficult because intentionally creating problems on real production computers and printers is risky and difficult to repeat.
 
-Through this project, all team members will actively contribute to and gain practical experience in systems programming, network protocol emulation, fault injection, Windows systems administration, and collaborative software engineering.
+To solve this, Team 04 is engineering a safe, controllable virtual environment comprising:
+- **Simulation Host Environment:** A Debian/Ubuntu virtual machine hosting simulation services.
+- **Virtual Printer Device:** Emulated network printer responding to print jobs (Port 9100 / IPP).
+- **SNMP Agent & Printer MIB Implementation:** Providing standard RFC 3805 / RFC 1759 device status queries.
+- **SNMP Trap Generator:** Proactively throwing asynchronous alerts and error traps into enterprise event management platforms.
+- **Printer Fault Library:** Simulating bad network conditions, toner levels, paper tray status (jams, out-of-paper), and print cover open states.
+- **Windows Endpoint Fault Agent:** Running on a demo Windows 11 VM to manipulate client-side system services.
+- **Endpoint Fault Library:** Simulating stopped/crashed Print Spooler (`spoolsv.exe`), jammed queues, and driver/port misconfigurations.
+- **Scenario Engine:** Scripted multi-step incident workflows for automated AI platform testing.
+- **Web Control Interface:** A browser-based interface to control errors, schedule triggers, and monitor live status.
+- **State Monitoring & Logging:** Comprehensive telemetry and structured logging across host, printer, and Windows VM.
+- **Reset and Restore Mechanism:** Fast, one-click baseline restoration ensuring complete test repeatability.
+- **Deployment and Operating:** Deployment scripts and operational documentation.
+
+All work is guided by the **7 Core Project Requirements**: *Repeatability, Realism, Controllability, Isolation & Safety, Portability, Observability, and Extensibility*.
 
 ---
 
-## 2. Decision-Making Process
+## 2. Decision-Making Process (2-Member Team)
 
 - **Primary Approach (Consensus & Consultation):**  
-  Major architectural, technical design, protocol selection, and scope decisions will be made via consensus so that all three members understand and agree with the technical direction. For specialized task areas, the responsible member will consult the group for feedback before finalizing implementation.
+  Major architectural, technical design, protocol selection, and scope decisions will be made through mutual consensus so both members maintain shared ownership of the technical implementation. Each member will consult the other before finalizing design specifications.
 
-- **Minor Decisions (Command):**  
-  Routine formatting, minor refactoring, or documentation layout adjustments with low impact can be decided independently by the assigned task owner and communicated to the team.
+- **Minor Decisions (Command / Ownership):**  
+  Routine formatting, minor refactoring, and component-specific code adjustments with low impact can be decided independently by the assigned task owner and communicated during syncs.
 
-- **Contingency Plan (Majority Vote):**  
-  Because the team has an odd number of members (3), any deadlock where consensus cannot be reached within 24 hours will be resolved by a majority vote (2-to-1).
+- **Contingency Plan for Deadlocks (Supervisor Escalation):**  
+  Because the team consists of 2 members, a majority vote is mathematically impossible during a split decision. If a technical or scope disagreement cannot be resolved through consensus within 24 hours, both members agree to document both perspectives and jointly consult the course supervisor / instructor for final determination.
 
 ---
 
 ## 3. Roles and Responsibilities
 
-To ensure clear accountability across our 3-person team, roles are structured as follows:
+To ensure balanced accountability across a 2-person engineering team, the 12 project deliverables are divided as follows:
 
-| Role Title | Primary Assignee | Core Responsibilities |
+| Role Title | Primary Assignee | Core Deliverables & Responsibilities |
 | :--- | :--- | :--- |
-| **Facilitator & Lead Developer** | **Sukanta Debnath** | • Coordinates meeting agendas, tracks milestone deadlines, and ensures alignment with project scope.<br>• Leads core virtual printer backend, network socket listener (Port 9100), and SNMP emulation architecture.<br>• Manages GitHub repository settings, branch merges, and technical coordination. |
-| **Strategist & QA / Testing Lead** | **Rejoana Carol** | • Defines test cases and scenarios for print functions and fault injection.<br>• Manages bug tracking, validation runs, and verifies accurate error portrayal.<br>• Ensures all deliverables adhere to course rubric criteria and requirements. |
-| **Recorder & Spokesperson (UI / Docs Lead)** | **Kanijfatma Arifali Tharadara** | • Documents meeting notes, design decisions, and technical setup guides.<br>• Leads the Web Control Interface design and real-time status portrayal.<br>• Coordinates final presentation materials, demonstration walkthroughs, and project reports. |
-
-*(Note: Roles remain flexible and may rotate across sprints/milestones to broaden practical experience.)*
+| **Lead Developer & Systems Architect** | **Sukanta Debnath** | • **Simulation Host Environment:** Setup and configuration of Debian/Ubuntu VM.<br>• **Virtual Printer Device:** Network transport, socket listener (Port 9100), and stream ingestion.<br>• **SNMP Agent & Printer MIB:** Implementing RFC 3805/1759 OIDs for printer status queries.<br>• **SNMP Trap Generator:** Building proactive asynchronous trap/inform dispatcher.<br>• **Printer Fault Library:** Implementing paper jam, toner, cover open, and bad network faults.<br>• **Reset and Restore Mechanism:** Host-side and printer reset automation.<br>• **Project Management:** GitHub repository administration, sprint tracking, and milestone coordination. |
+| **Endpoint & Interface Developer** | **Team Member 2** | • **Windows Endpoint Fault Agent:** Service controller on demo Windows 11 VM.<br>• **Endpoint Fault Library:** Simulating stopped/crashed Print Spooler (`spoolsv.exe`), stuck queues, driver/port faults.<br>• **Scenario Engine:** Scriptable test case runner orchestrating multi-step AI support demos.<br>• **Web Control Interface:** Building frontend dashboard for fault triggering and timeline control.<br>• **State Monitoring & Logging:** Aggregating real-time state telemetry and structured audit logs.<br>• **Deployment & Operating:** Writing setup scripts, VM deployment guides, and rubric compliance QA. |
 
 ---
 
 ## 4. Working Agreements
 
-### 📡 Communication Channel
-- **Primary Channel:** **Microsoft Teams** is the central hub for all asynchronous updates, file sharing, quick questions, and virtual calls.
-- **Code & Project Tracking:** **GitHub** repository ([`Fake_printer_testing`](https://github.com/sdPrang0n/Fake_printer_testing)) and **GitHub Project Board #1** are used for version control, issue tracking, and weekly sprint progress.
+### 📡 Communication Channels
+- **Primary Channel:** **Microsoft Teams** serves as the central hub for all asynchronous messaging, file sharing, quick questions, and virtual calls.
+- **Code & Project Tracking:** **GitHub** repository ([`Fake_printer_testing`](https://github.com/sdPrang0n/Fake_printer_testing)) and **GitHub Project Board #1** are used for version control, issue tracking, and sprint tracking.
 
 ### ⏱️ Response Time & Availability
 - **Response Commitment:** Members agree to check Microsoft Teams regularly and acknowledge messages, pull requests, or blockers within **24 hours**.
@@ -71,11 +77,9 @@ To ensure clear accountability across our 3-person team, roles are structured as
 ### 🤝 Accountability & Transparency
 - Members will commit code and documentation regularly to maintain visibility.
 - Technical blockers or delays must be flagged early in Teams rather than waiting until deadline day.
-- Constructive feedback and pair programming will be embraced during feature integration.
+- Pair programming and code reviews will be conducted for core component integrations.
 
 ### ⚖️ Conflict Resolution Process
 1. **Direct Inquiry:** Address misunderstandings early by focusing objectively on the code/deliverable rather than the individual, assuming positive intent.
-2. **Team Review:** If a disagreement or missed commitment persists, dedicate time during the next Teams sync to openly discuss the issue and adjust task distributions.
-3. **Escalation:** If internal resolution cannot be reached after a dedicated team discussion, jointly reach out to the course instructor or project supervisor for formal guidance and mediation.
-
----
+2. **Team Review:** If a disagreement persists, dedicate time during the next Teams sync to openly discuss the issue and adjust task distributions.
+3. **Instructor Mediation:** If resolution cannot be reached after a dedicated discussion, jointly reach out to the course instructor or project supervisor for formal guidance.
