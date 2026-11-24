@@ -92,6 +92,8 @@ The system is engineered against seven foundational technical criteria:
 ## 📊 Project Documents & Kanban
 
 - 🚀 **Live Interactive Board:** [GitHub Project #1](https://github.com/users/sdPrang0n/projects/1)
+- 📝 **Task 1A Project Proposal (Individual):** [PROPOSAL_TASK_1A.md](PROPOSAL_TASK_1A.md) | Word Doc: [`docs/Sukanta_Debnath_Task_1A_Proposal.docx`](docs/Sukanta_Debnath_Task_1A_Proposal.docx)
+- 📔 **Task 1A Initial Journal Guide:** [docs/JOURNAL_TASK_1A.md](docs/JOURNAL_TASK_1A.md)
 - 📋 **System Requirements Specification (SRS):** [REQUIREMENTS.md](REQUIREMENTS.md)
 - 📄 **Offline Markdown Board:** [KANBAN.md](KANBAN.md)
 - 📜 **Team Charter:** [TEAM_CHARTER.md](TEAM_CHARTER.md) | Word Doc: [`docs/Team_Charter_Team04.docx`](docs/Team_Charter_Team04.docx)
